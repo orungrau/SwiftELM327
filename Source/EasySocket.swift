@@ -1,12 +1,12 @@
 //
 //  EasySocket.swift
-//  SwiftELM327
+//  CrioDiagnost
 //
-//  Created by Anatoly Myaskov on 06.08.17.
+//  Created by Anatoly Myaskov on 05.08.17.
 //  Copyright © 2017 Anatoly Myaskov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public enum SocketStatus {
     case connected
@@ -68,11 +68,15 @@ public class EasySocket: NSObject, StreamDelegate {
         case Stream.Event.hasBytesAvailable:
             var buffer = [UInt8](repeating: 0, count: 4096)
             while (inputStream.hasBytesAvailable){
-                let output = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
-                self.delegate?.socketResponce(self, data: output! as String)
+                let len = inputStream.read(&buffer, maxLength: buffer.count)
+                if(len > 0){
+                    let output = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
+                    self.delegate?.socketResponce(self, data: output! as String)
+                }
             }
 
         case Stream.Event.openCompleted:
+                    print("[Socket] Open")
             self.delegate?.socketStatus(self, status: .connected)
             
         default: break
