@@ -76,7 +76,6 @@ public class EasySocket: NSObject, StreamDelegate {
             }
 
         case Stream.Event.openCompleted:
-                    print("[Socket] Open")
             self.delegate?.socketStatus(self, status: .connected)
             
         default: break

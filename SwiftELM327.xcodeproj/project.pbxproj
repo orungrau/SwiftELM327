@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		184408681F3673D600810E4B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184408671F3673D600810E4B /* Info.plist */; };
-		1844086A1F3673DD00810E4B /* SwiftELM327.h in Headers */ = {isa = PBXBuildFile; fileRef = 184408691F3673DD00810E4B /* SwiftELM327.h */; };
+		1844086A1F3673DD00810E4B /* SwiftELM327.h in Headers */ = {isa = PBXBuildFile; fileRef = 184408691F3673DD00810E4B /* SwiftELM327.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1844086C1F370C1400810E4B /* EasySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844086B1F370C1400810E4B /* EasySocket.swift */; };
+		184408981F372D0100810E4B /* ELM327.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184408971F372D0100810E4B /* ELM327.swift */; };
+		184408991F372D0900810E4B /* SwiftELM327.h in Sources */ = {isa = PBXBuildFile; fileRef = 184408691F3673DD00810E4B /* SwiftELM327.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +19,7 @@
 		184408671F3673D600810E4B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		184408691F3673DD00810E4B /* SwiftELM327.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftELM327.h; path = Source/SwiftELM327.h; sourceTree = SOURCE_ROOT; };
 		1844086B1F370C1400810E4B /* EasySocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasySocket.swift; path = Source/EasySocket.swift; sourceTree = SOURCE_ROOT; };
+		184408971F372D0100810E4B /* ELM327.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327.swift; path = Source/ELM327.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +52,7 @@
 		1844085E1F36733A00810E4B /* SwiftELM327 */ = {
 			isa = PBXGroup;
 			children = (
+				184408971F372D0100810E4B /* ELM327.swift */,
 				184408691F3673DD00810E4B /* SwiftELM327.h */,
 				184408671F3673D600810E4B /* Info.plist */,
 				1844086B1F370C1400810E4B /* EasySocket.swift */,
@@ -76,8 +80,8 @@
 			buildPhases = (
 				184408571F36733A00810E4B /* Sources */,
 				184408581F36733A00810E4B /* Frameworks */,
-				184408591F36733A00810E4B /* Headers */,
 				1844085A1F36733A00810E4B /* Resources */,
+				184408591F36733A00810E4B /* Headers */,
 			);
 			buildRules = (
 			);
@@ -138,7 +142,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184408991F372D0900810E4B /* SwiftELM327.h in Sources */,
 				1844086C1F370C1400810E4B /* EasySocket.swift in Sources */,
+				184408981F372D0100810E4B /* ELM327.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +262,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftELM327/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Anatoly-Myaskov.SwiftELM327";
@@ -277,7 +283,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftELM327/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Anatoly-Myaskov.SwiftELM327";

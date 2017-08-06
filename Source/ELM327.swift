@@ -8,11 +8,6 @@
 
 import UIKit
 
-public enum ELM327Error{
-    case NODATA
-    case STOPED
-}
-
 public enum SessionState{
     case Connected
     case Error
@@ -20,12 +15,11 @@ public enum SessionState{
 
 public protocol ELM327Delegate {
     func elm327(_ elm: ELM327, command: String, responce: String)
-    func elm327(_ elm: ELM327, command: String, error: ELM327Error)
     func elm327(_ elm: ELM327, sessionState: SessionState)
 }
 
 public class ELM327: NSObject, EasySocketDelegate {
-    var delegate: ELM327Delegate?
+    public var delegate: ELM327Delegate?
 
     var easySocket = EasySocket()
     var responceTemp = String()
@@ -44,7 +38,6 @@ public class ELM327: NSObject, EasySocketDelegate {
     }
 
     public func socketResponce(_ socket: EasySocket, data: String) {
-       // print(data)
         if (data.range(of: ">") != nil) {
             responceTemp = responceTemp+data
             self.responceData(data: responceTemp)
@@ -59,12 +52,10 @@ public class ELM327: NSObject, EasySocketDelegate {
 
         if let commandRange = data.range(of: "\r") {
             command = data[data.startIndex..<commandRange.lowerBound]
-            //print("Command \(command)")
         }
 
         if let responceRange = data.range(of: "\r\r>") {
-            responce = data[command.endIndex..<responceRange.lowerBound]
-           // print("Command \(command)")
+            responce = data[(command+"\r").endIndex..<responceRange.lowerBound]
         }
         responceTemp = ""
         self.delegate?.elm327(self, command: command, responce: responce)
@@ -76,8 +67,6 @@ public class ELM327: NSObject, EasySocketDelegate {
             self.delegate?.elm327(self, sessionState: .Connected)
         case .connectionError:
             self.delegate?.elm327(self, sessionState: .Error)
-        default:
-            break
         }
     }
 }
