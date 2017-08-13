@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func didSendAT(_ sender: Any) {
-        elm.sendAT(command: atTextField.text!)
+        elm.sendAT(command: .other(atTextField.text!))
     }
 
     @IBAction func didSendCar(_ sender: Any) {

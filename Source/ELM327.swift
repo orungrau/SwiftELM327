@@ -29,8 +29,8 @@ public class ELM327: NSObject, EasySocketDelegate {
         easySocket.connect(address: address as CFString, port: UInt32(port)!)
     }
 
-    public func sendAT(command: String){
-        easySocket.write(string: "AT"+command+"\r")
+    public func sendAT(command: ATCommand){
+        easySocket.write(string: "AT"+command.description+"\r")
     }
 
     public func sendCar(command: String){

@@ -12,6 +12,7 @@
 		1844086C1F370C1400810E4B /* EasySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844086B1F370C1400810E4B /* EasySocket.swift */; };
 		184408981F372D0100810E4B /* ELM327.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184408971F372D0100810E4B /* ELM327.swift */; };
 		184408991F372D0900810E4B /* SwiftELM327.h in Sources */ = {isa = PBXBuildFile; fileRef = 184408691F3673DD00810E4B /* SwiftELM327.h */; };
+		670E70BA536EB1EF896D3514 /* ATCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670E7B214FE0CDC9E6F06F3F /* ATCommand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		184408691F3673DD00810E4B /* SwiftELM327.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftELM327.h; path = Source/SwiftELM327.h; sourceTree = SOURCE_ROOT; };
 		1844086B1F370C1400810E4B /* EasySocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasySocket.swift; path = Source/EasySocket.swift; sourceTree = SOURCE_ROOT; };
 		184408971F372D0100810E4B /* ELM327.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327.swift; path = Source/ELM327.swift; sourceTree = SOURCE_ROOT; };
+		670E7B214FE0CDC9E6F06F3F /* ATCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCommand.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				184408691F3673DD00810E4B /* SwiftELM327.h */,
 				184408671F3673D600810E4B /* Info.plist */,
 				1844086B1F370C1400810E4B /* EasySocket.swift */,
+				670E7B214FE0CDC9E6F06F3F /* ATCommand.swift */,
 			);
 			path = SwiftELM327;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				184408991F372D0900810E4B /* SwiftELM327.h in Sources */,
 				1844086C1F370C1400810E4B /* EasySocket.swift in Sources */,
 				184408981F372D0100810E4B /* ELM327.swift in Sources */,
+				670E70BA536EB1EF896D3514 /* ATCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

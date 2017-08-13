@@ -9,7 +9,7 @@ elm.startSession(address: "ELM_ADDRESS", port: "ELM_PORT")
 ```
 Send at command
 ```swift
-elm.sendAT(command: "RV")
+elm.sendAT(command: .other("RV"))
 ```
 
 Send to car
