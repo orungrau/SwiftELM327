@@ -9,10 +9,10 @@
 import UIKit
 import SwiftELM327
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ELM327Delegate {
+class ViewController: UIViewController {
 
     var elm = ELM327()
-    var responce = Array<NSDictionary>()
+    var response: Array<Dictionary<String, Any>> = []
 
     @IBOutlet weak var sendCarButton: UIButton!
     @IBOutlet weak var sendAtButton: UIButton!
@@ -49,9 +49,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func didConnect(_ sender: Any) {
         self.elm.startSession(address: addressTextField.text!, port: portTextField.text!)
     }
+}
 
-    func elm327(_ elm: ELM327, sessionState: SessionState) {
-        if sessionState == .Connected {
+
+extension ViewController: ELM327Delegate {
+    func elm327(state: ELM327SessionState) {
+        if state == ELM327SessionState.connect {
             print("Ok")
             sendAtButton.isHidden = false
             sendCarButton.isHidden = false
@@ -64,28 +67,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    func elm327(_ elm: ELM327, command: String, responce: String) {
-        self.responce.insert(["command": command, "responce": responce], at: 0)
+    func elm327(command: String, response: String) {
+        self.response.insert(["command": command, "response": response], at: 0)
         self.tableView.reloadData()
     }
+}
 
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     @available(iOS 2.0, *)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let element = responce[indexPath.row] as NSDictionary
-
+        let element = response[indexPath.row] as NSDictionary
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        (cell?.viewWithTag(101) as! UILabel).text = element.object(forKey: "command") as! String
-        (cell?.viewWithTag(102) as! UILabel).text = element.object(forKey: "responce") as! String
+        (cell?.viewWithTag(101) as! UILabel).text = element.object(forKey: "command") as? String
+        (cell?.viewWithTag(102) as! UILabel).text = element.object(forKey: "response") as? String
 
-        // Returning the cell
         return cell!
     }
 
     @available(iOS 2.0, *)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return responce.count
+        return response.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

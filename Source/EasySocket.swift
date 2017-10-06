@@ -6,24 +6,50 @@
 //  Copyright © 2017 Anatoly Myaskov. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-public enum SocketStatus {
+public enum EasySocketStatus {
     case connected
-    case connectionError
+    case error
 }
 
 public protocol EasySocketDelegate {
-    func socketResponce(_ socket: EasySocket, data: String)
-    func socketStatus(_ socket: EasySocket, status: SocketStatus)
+    func socketResponse(_ socket: EasySocket, data: String)
+    func socketStatus(_ socket: EasySocket, status: EasySocketStatus)
 }
 
-public class EasySocket: NSObject, StreamDelegate {
+public class EasySocket: NSObject {
     var delegate: EasySocketDelegate?
 
-    private var inputStream: InputStream!
-    private var outputStream: OutputStream!
+    fileprivate var inputStream: InputStream!
+    fileprivate var outputStream: OutputStream!
 
+}
+
+extension EasySocket: StreamDelegate {
+    public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+        switch (eventCode){
+        case Stream.Event.errorOccurred:
+            self.delegate?.socketStatus(self, status: .error)
+        case Stream.Event.endEncountered:
+            self.delegate?.socketStatus(self, status: .error)
+        case Stream.Event.hasBytesAvailable:
+            var buffer = [UInt8](repeating: 0, count: 4096)
+            while (inputStream.hasBytesAvailable){
+                let len = inputStream.read(&buffer, maxLength: buffer.count)
+                if(len > 0){
+                    let output = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
+                    self.delegate?.socketResponse(self, data: output! as String)
+                }
+            }
+        case Stream.Event.openCompleted:
+            self.delegate?.socketStatus(self, status: .connected)
+        default: break
+        }
+    }
+}
+
+extension EasySocket {
     func connect(address: CFString, port:UInt32) {
         var readStream:  Unmanaged<CFReadStream>?
         var writeStream: Unmanaged<CFWriteStream>?
@@ -41,7 +67,6 @@ public class EasySocket: NSObject, StreamDelegate {
 
         self.inputStream.open()
         self.outputStream.open()
-
     }
 
     func write(string: String){
@@ -55,30 +80,6 @@ public class EasySocket: NSObject, StreamDelegate {
         self.inputStream.close()
         self.outputStream.close()
     }
-
-    public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-        switch (eventCode){
-
-        case Stream.Event.errorOccurred:
-            self.delegate?.socketStatus(self, status: .connectionError)
-
-        case Stream.Event.endEncountered:
-            self.delegate?.socketStatus(self, status: .connectionError)
-
-        case Stream.Event.hasBytesAvailable:
-            var buffer = [UInt8](repeating: 0, count: 4096)
-            while (inputStream.hasBytesAvailable){
-                let len = inputStream.read(&buffer, maxLength: buffer.count)
-                if(len > 0){
-                    let output = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
-                    self.delegate?.socketResponce(self, data: output! as String)
-                }
-            }
-
-        case Stream.Event.openCompleted:
-            self.delegate?.socketStatus(self, status: .connected)
-            
-        default: break
-        }
-    }
 }
+
+
