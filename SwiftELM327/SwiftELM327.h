@@ -2,8 +2,8 @@
 //  SwiftELM327.h
 //  SwiftELM327
 //
-//  Created by Anatoly Myaskov on 06.08.17.
-//  Copyright © 2017 Anatoly Myaskov. All rights reserved.
+//  Created by Anatoly Myaskov on 06/08/2019.
+//  Copyright © 2019 Anatoly Myaskov. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -1,25 +1,29 @@
 //
-// Created by Anatoly Myaskov on 13.08.17.
-// Copyright (c) 2017 Anatoly Myaskov. All rights reserved.
+//  ATCommand.swift
+//  SwiftELM327
+//
+//  Created by Anatoly Myaskov on 06/08/2019.
+//  Copyright © 2019 Anatoly Myaskov. All rights reserved.
 //
 
 import Foundation
 
-public enum ATCommand {
-    case reset
-    case header(Bool)
-    case echo(Bool)
-    case voltage
-    case `protocol`
-    case protocolNumber
-    case versionId
-    case deviceDescription
-    case readDeviceIdentifier
-    case setDeviceIdentifier(String)
-    case other(String)
-
-    var description: String {
-        switch self {
+extension Command {
+    public enum AT: CommandProtocol {
+        case reset
+        case header(Bool)
+        case echo(Bool)
+        case voltage
+        case `protocol`
+        case protocolNumber
+        case versionId
+        case deviceDescription
+        case readDeviceIdentifier
+        case setDeviceIdentifier(String)
+        case other(String)
+        
+        public func raw() -> String {
+            switch self {
             case .reset:
                 return "WS"
             case let .header(bool):
@@ -50,7 +54,7 @@ public enum ATCommand {
                 return "@2 " + identifier
             case .other(let command):
                 return command
+            }
         }
     }
 }
-
